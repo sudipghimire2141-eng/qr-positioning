@@ -1,59 +1,43 @@
-:root {
-    --theme: #280; /* CSS variable */
-}
+:root { --theme: #280; }
 
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
+    padding: 20px;
 }
 
-h1 {
-    font-family: "Arial";
-    color: var(--theme);
+h1 { color: var(--theme); }
+
+#camera { width: 100%; max-width: 400px; margin-bottom: 20px; }
+
+button {
+    background-color: var(--theme);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
 }
 
-#map {
+button:hover {
+    background-color: #3aff00;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.item {
+    border: 2px solid var(--theme);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
     width: 100%;
+    max-width: 400px;
+    background-color: #f0fff0;
 }
-
-#marker {
-    width: 3vw; /* 3% of the viewport width */
-    height: 3vw;
-    background-color: black;
-    border-radius: 50%;
-    outline: 5px solid var(--theme); /* does not affect the size */
-    border: 5px solid white; /* affects the size */
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-}
-
-#mapContainer {
-    position: relative;
-    display: none;
-}
-
-#camera {
-    width: 100%;
-}
-.my-button {
-    background-color: var(--theme); /* uses your class variable */
-    color: white;                   /* text color */
-    border: none;                   /* remove default border */
-    padding: 12px 25px;             /* space inside button */
-    font-size: 18px;                /* text size */
-    font-weight: bold;              /* bold text */
-    border-radius: 8px;             /* rounded corners */
-    cursor: pointer;                /* shows hand pointer on hover */
-    transition: all 0.3s ease;      /* smooth hover animation */
-}
-
-.my-button:hover {
-    background-color: #3aff00;      /* brighter green on hover */
-    transform: scale(1.05);         /* grows slightly on hover */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* subtle shadow */
-}
-
