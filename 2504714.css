@@ -39,19 +39,5 @@ h1 {
 #camera {
     width: 100%;
 }
-.my-button {
-    background-color:#3aff00; /* uses your existing CSS variable */
-    color: white; /* text color */
-    border: none; /* remove default border */
-    padding: 10px 20px; /* space inside the button */
-    font-size: 16px; /* text size */
-    border-radius: 5px; /* rounded corners */
-    cursor: pointer; /* shows hand pointer on hover */
-    transition: all 0.3s ease; /* smooth hover animation */
-}
 
-.my-button:hover {
-    background-color: #1f6600; /* darker shade of your --theme */
-    transform: scale(1.05); /* grows slightly when hovered */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* adds shadow on hover */
-}
+
