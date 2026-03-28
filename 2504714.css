@@ -39,4 +39,21 @@ h1 {
 #camera {
     width: 100%;
 }
+.my-button {
+    background-color: var(--theme); /* uses your class variable */
+    color: white;                   /* text color */
+    border: none;                   /* remove default border */
+    padding: 12px 25px;             /* space inside button */
+    font-size: 18px;                /* text size */
+    font-weight: bold;              /* bold text */
+    border-radius: 8px;             /* rounded corners */
+    cursor: pointer;                /* shows hand pointer on hover */
+    transition: all 0.3s ease;      /* smooth hover animation */
+}
+
+.my-button:hover {
+    background-color: #3aff00;      /* brighter green on hover */
+    transform: scale(1.05);         /* grows slightly on hover */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* subtle shadow */
+}
 
