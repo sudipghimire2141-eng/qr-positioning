@@ -1,8 +1,14 @@
 const reader = new Html5Qrcode("camera");
 let scannerOn = false;
 
+// Reference to the inventory div
+const inventoryDiv = document.getElementById('inventory');
+
 function toggleScanner() {
     scannerOn = !scannerOn;
+    const mapContainer = document.getElementById('mapContainer');
+    const btn = document.getElementById('btn');
+
     if (scannerOn) {
         startScanner();
         mapContainer.style.display = "none";
@@ -11,7 +17,6 @@ function toggleScanner() {
         stopScanner();
         mapContainer.style.display = "block";
         btn.innerText = "SCAN";
-        const inventoryDiv = document.getElementById('inventory');
     }
 }
 
@@ -19,11 +24,7 @@ function startScanner() {
     reader.start(
         { facingMode: "environment" },
         {},
-       function startScanner() {
-    reader.start(
-        { facingMode: "environment" },
-        {},
-        function (text) {
+        function (text) { // single callback
             try {
                 const data = JSON.parse(text);
 
@@ -44,13 +45,13 @@ function startScanner() {
                 inventoryDiv.appendChild(inStoreP);
                 inventoryDiv.appendChild(priceP);
 
-                
+                // Show marker if QR has coordinates
                 if (data.top && data.left) {
                     showMarkerAt(data.top, data.left);
                 }
 
                 // Stop scanner after successful scan
-                toggleScanner(); // this will hide camera and show map
+                toggleScanner(); // hide camera and show map
 
             } catch (err) {
                 console.error("Invalid JSON in QR code:", err);
@@ -61,16 +62,13 @@ function startScanner() {
         console.error(err);
     });
 }
-    ).catch(function (err) {
-        console.error(err);
-    });
-}
 
 function stopScanner() {
     reader.stop();
 }
 
 function showMarkerAt(top, left) {
+    const marker = document.getElementById('marker');
     marker.style.top = top;
     marker.style.left = left;
 }
