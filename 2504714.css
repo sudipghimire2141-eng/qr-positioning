@@ -49,3 +49,8 @@ h1 {
     cursor: pointer;                 /* shows pointer on hover */
     transition: all 0.3s ease;      /* smooth animation on hover */
 }
+#button:hover {
+    background-color: white;         /* background changes on hover */
+    color: var(--theme);             /* text color changes to match theme */
+    transform: scale(1.05);          /* slightly enlarge the button */
+}
