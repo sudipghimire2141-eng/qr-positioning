@@ -50,7 +50,7 @@ h1 {
     transition: all 0.3s ease;      /* smooth animation on hover */
 }
 #button:hover {
-    background-color: Green;         /* background changes on hover */
+    background-color: green;         /* background changes on hover */
     color: var(--theme);             /* text color changes to match theme */
     transform: scale(1.05);          /* slightly enlarge the button */
 }
