@@ -1,3 +1,5 @@
+const inventoryContainer = document.getElementById("inventory");
+const btn = document.getElementById("btn");
 const reader = new Html5Qrcode("camera");
 let scannerOn = false;
 
@@ -5,11 +7,9 @@ function toggleScanner() {
     scannerOn = !scannerOn;
     if (scannerOn) {
         startScanner();
-        mapContainer.style.display = "none";
         btn.innerText = "CANCEL";
     } else {
         stopScanner();
-        mapContainer.style.display = "block";
         btn.innerText = "SCAN";
     }
 }
@@ -19,20 +19,28 @@ function startScanner() {
         { facingMode: "environment" },
         {},
         function (text) {
-            const place = JSON.parse(text);
-            showMarkerAt(place.top, place.left);
-            toggleScanner();
+            try {
+                const product = JSON.parse(text);
+                displayItem(product);
+                toggleScanner(); // stop after one scan
+            } catch (err) {
+                console.error("Invalid QR code data:", err);
+            }
         }
-    ).catch(function (err) {
-        console.error(err);
-    });
+    ).catch(err => console.error("Scanner error:", err));
 }
 
 function stopScanner() {
-    reader.stop();
+    reader.stop().catch(err => console.error(err));
 }
 
-function showMarkerAt(top, left) {
-    marker.style.top = top;
-    marker.style.left = left;
+function displayItem(product) {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+        <p><strong>Name:</strong> ${product.name}</p>
+        <p><strong>In Store:</strong> ${product.in_store ? "Yes" : "No"}</p>
+        <p><strong>Price:</strong> €${product.price.toFixed(2)}</p>
+    `;
+    inventoryContainer.appendChild(div);
 }
