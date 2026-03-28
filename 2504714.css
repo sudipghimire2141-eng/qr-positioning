@@ -39,4 +39,22 @@ h1 {
 #camera {
     width: 100%;
 }
+:root {
+  /* Define your dark green variable here */
+  --main-bg-color: #004d40; 
+}
+button {
+  background-color: var(--main-bg-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+button:hover {
+  cursor: pointer;           /* Requirement: Changes the mouse icon */
+  filter: brightness(1.2);   /* Makes the button slightly lighter */
+  transform: translateY(-2px); /* Makes the button "pop" up slightly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
