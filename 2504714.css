@@ -19,12 +19,12 @@ h1 {
 }
 
 #marker {
-    width: 3vw; /* 3% of the viewport width */
+    width: 3vw;
     height: 3vw;
     background-color: black;
     border-radius: 50%;
-    outline: 5px solid var(--theme); /* does not affect the size */
-    border: 5px solid white; /* affects the size */
+    outline: 5px solid var(--theme);
+    border: 5px solid white;
     position: absolute;
     top: 0;
     left: 0;
@@ -39,18 +39,13 @@ h1 {
 #camera {
     width: 100%;
 }
-#button {
-    background-color: green;  /* use the CSS variable you defined */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;                 /* shows pointer on hover */
-    transition: all 0.3s ease;      /* smooth animation on hover */
+
+/* QR scanner box styling */
+.html5-qrcode-square {
+    border: 3px solid green !important;  /* green scan box border */
+    border-radius: 6px;                  /* optional rounded corners */
 }
-#button:hover {
-    background-color: green;         /* background changes on hover */
-    color: var(--theme);             /* text color changes to match theme */
-    transform: scale(1.05);          /* slightly enlarge the button */
+
+.html5-qrcode-viewfinder__canvas {
+    outline: 2px solid green !important; /* optional green outline around camera */
 }
