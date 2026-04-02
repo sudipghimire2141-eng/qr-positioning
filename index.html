@@ -8,16 +8,36 @@
 </head>
 <body>
     <h1>QR Positioning</h1>
+
+    <!-- Map Container -->
     <div id="mapContainer">
         <img src="map.png" id="map" alt="map" />
         <div id="marker"></div>
     </div>
-    <button id="btn" class="my-button" onclick="toggleScanner()">SCAN</button>
-    <div id="inventory"></div>
-    
 
+    <!-- Scan Button -->
+    <button id="btn" class="my-button" onclick="toggleScanner()">SCAN</button>
+
+    <!-- Inventory Table -->
+    <div id="inventory">
+        <table id="inventoryTable" border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Camera Preview -->
     <div id="camera"></div>
 
+    <!-- Scripts -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script src="2504714.js"></script>
 </body>
