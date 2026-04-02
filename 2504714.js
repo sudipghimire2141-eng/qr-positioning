@@ -3,9 +3,11 @@ let qrScanner;
 function toggleScanner() {
     const cameraDiv = document.getElementById('camera');
     const mapContainer = document.getElementById('mapContainer');
-    const inventoryDiv = document.getElementById('inventory');
+    const tableBody = document.querySelector("#inventoryTable tbody");
+    const marker = document.getElementById('marker');
+    const mapImg = document.getElementById('map');
 
-    // show camera and hide map initially
+    // Show camera, hide map
     cameraDiv.style.display = "block";
     mapContainer.style.display = "none";
 
@@ -17,7 +19,6 @@ function toggleScanner() {
             (decodedText, decodedResult) => {
                 console.log("QR Scanned:", decodedText);
 
-                // stop scanning
                 qrScanner.stop().then(() => {
                     cameraDiv.style.display = "none";
                     mapContainer.style.display = "block";
@@ -25,44 +26,56 @@ function toggleScanner() {
                     try {
                         const data = JSON.parse(decodedText);
 
-                        // Clear previous inventory info
-                        inventoryDiv.innerHTML = "";
+                        // Clear previous table rows
+                        tableBody.innerHTML = "";
 
-                        // Create <p> tags dynamically
-                        const nameP = document.createElement("p");
-                        nameP.textContent = "Name: " + data.name;
+                        // Add new row
+                        const row = document.createElement("tr");
 
-                        const inStoreP = document.createElement("p");
-                        inStoreP.textContent = "In Store: " + (data.in_store ? "Yes" : "No");
+                        const nameCell = document.createElement("td");
+                        nameCell.textContent = data.name;
 
-                        const priceP = document.createElement("p");
-                        priceP.textContent = "Price: €" + data.price;
+                        const latCell = document.createElement("td");
+                        latCell.textContent = data.latitude;
 
-                        inventoryDiv.appendChild(nameP);
-                        inventoryDiv.appendChild(inStoreP);
-                        inventoryDiv.appendChild(priceP);
+                        const lonCell = document.createElement("td");
+                        lonCell.textContent = data.longitude;
 
-                        // Show marker if coordinates exist
-                        if (data.top && data.left) {
-                            const marker = document.getElementById('marker');
-                            marker.style.top = data.top;
-                            marker.style.left = data.left;
+                        row.appendChild(nameCell);
+                        row.appendChild(latCell);
+                        row.appendChild(lonCell);
+
+                        tableBody.appendChild(row);
+
+                        // Place marker based on latitude/longitude
+                        if (data.latitude !== undefined && data.longitude !== undefined) {
+                            const pos = latLonToPixels(data.latitude, data.longitude, mapImg.width, mapImg.height);
+                            marker.style.top = pos.y + "px";
+                            marker.style.left = pos.x + "px";
                         }
 
                     } catch (err) {
-                        console.error("Invalid JSON in QR code:", err);
-                        inventoryDiv.textContent = "QR code does not contain valid inventory data.";
+                        console.error("Invalid JSON:", err);
+                        tableBody.innerHTML = `<tr><td colspan="3">QR code does not contain valid data.</td></tr>`;
                     }
 
-                }).catch(err => {
-                    console.error("Failed to stop scanner:", err);
-                });
+                }).catch(err => console.error("Failed to stop scanner:", err));
             },
-            (errorMessage) => {
-                // ignore frames where QR code is not detected
-            }
-        ).catch(err => {
-            console.error("Unable to start scanner:", err);
-        });
+            (errorMessage) => { /* ignore frames with no QR */ }
+        ).catch(err => console.error("Unable to start scanner:", err));
     }
+}
+
+// Convert latitude/longitude to pixel coordinates on map
+function latLonToPixels(lat, lon, mapWidth, mapHeight) {
+    // Replace these with your map's actual bounds
+    const latTop = 63.0;
+    const latBottom = 62.0;
+    const lonLeft = 29.0;
+    const lonRight = 30.0;
+
+    const x = ((lon - lonLeft) / (lonRight - lonLeft)) * mapWidth;
+    const y = ((latTop - lat) / (latTop - latBottom)) * mapHeight;
+
+    return { x, y };
 }
